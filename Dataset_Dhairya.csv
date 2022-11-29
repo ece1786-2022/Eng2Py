@@ -6,53 +6,53 @@ from numpy.random import randint
 import matplotlib.pyplot as plt
 
 def left(i):
-	return 2 * i + 1
+    return 2 * i + 1
 
 def right(i):
-	return 2 * i + 2
+    return 2 * i + 2
 
 def heapSize(A):
-	return len(A)-1
+    return len(A)-1
 
 def MaxHeapify(A, i):
-	l = left(i)
-	r = right(i)
-	
-	if l<= heapSize(A) and A[l] > A[i] :
-		largest = l
-	else:
-		largest = i
-	if r<= heapSize(A) and A[r] > A[largest]:
-		largest = r
-	if largest != i:
-		A[i], A[largest]= A[largest], A[i]
-		MaxHeapify(A, largest)
-	
+    l = left(i)
+    r = right(i)
+    
+    if l<= heapSize(A) and A[l] > A[i] :
+        largest = l
+    else:
+        largest = i
+    if r<= heapSize(A) and A[r] > A[largest]:
+        largest = r
+    if largest != i:
+        A[i], A[largest]= A[largest], A[i]
+        MaxHeapify(A, largest)
+    
 def BuildMaxHeap(A):
-	for i in range(int(heapSize(A)/2)-1, -1, -1):
-		MaxHeapify(A, i)
-		
+    for i in range(int(heapSize(A)/2)-1, -1, -1):
+        MaxHeapify(A, i)
+        
 def HeapSort(A):
-	BuildMaxHeap(A)
-	B = list()
-	heapSize1 = heapSize(A)
-	for i in range(heapSize(A), 0, -1):
-		A[0], A[i]= A[i], A[0]
-		B.append(A[heapSize1])
-		A = A[:-1]
-		heapSize1 = heapSize1-1
-		MaxHeapify(A, 0)
-		
+    BuildMaxHeap(A)
+    B = list()
+    heapSize1 = heapSize(A)
+    for i in range(heapSize(A), 0, -1):
+        A[0], A[i]= A[i], A[0]
+        B.append(A[heapSize1])
+        A = A[:-1]
+        heapSize1 = heapSize1-1
+        MaxHeapify(A, 0)
+        
 elements = list()
 times = list()
 for i in range(1, 10):
-	a = randint(0, 1000 * i, 1000 * i)
-	start = time.clock()
-	HeapSort(a)
-	end = time.clock()
-	print(len(a), ""Elements Sorted by HeapSort in "", end-start)
-	elements.append(len(a))
-	times.append(end-start)
+    a = randint(0, 1000 * i, 1000 * i)
+    start = time.clock()
+    HeapSort(a)
+    end = time.clock()
+    print(len(a), ""Elements Sorted by HeapSort in "", end-start)
+    elements.append(len(a))
+    times.append(end-start)
 
 plt.xlabel('List Length')
 plt.ylabel('Time Complexity')
@@ -819,15 +819,6 @@ def merge(arr, temp_arr, left, mid, right):
 
 
 "
-" Write a python program to sort an array in wave form
-","def sortInWave(arr, n):
-    arr.sort()
-    for i in range(0,n-1,2):
-        arr[i], arr[i+1] = arr[i+1], arr[i]
-
-
-
-"
 " Write a python function to sort an array in wave form
 ","def sortInWave(arr, n):
     for i in range(0, n, 2):
@@ -1019,6 +1010,1365 @@ def three_way_radix_quicksort(sorting: list) -> list:
 
     return arr
 
+
+
+"
+" Write a Python program to sort unsorted numbers using non-parallelized implementation of odd-even transposition sort
+","def odd_even_transposition(arr_nums: list) -> list:
+    arr_size = len(arr_nums)
+    for _ in range(arr_size):
+        for i in range(_ % 2, arr_size - 1, 2):
+            if arr_nums[i + 1] < arr_nums[i]:
+                arr_nums[i], arr_nums[i + 1] = arr_nums[i + 1], arr_nums[i]
+
+    return arr_nums
+
+
+
+"
+" Write a python program for time Complexity plot of Heap Sort
+","import time
+from numpy.random import seed
+from numpy.random import randint
+import matplotlib.pyplot as plt
+
+def left(j):
+    return 2 * j + 1
+
+def right(j):
+    return 2 * j + 2
+
+def heapSize(arr):
+    return len(arr)-1
+
+def MaxHeapify(arr, j):
+    l = left(j)
+    r = right(j)
+    
+    if l<= heapSize(arr) and arr[l] > arr[i] :
+        largest = l
+    else:
+        largest = j
+    if r<= heapSize(arr) and arr[r] > arr[largest]:
+        largest = r
+    if largest != j:
+        arr[i], arr[largest]= arr[largest], arr[i]
+        MaxHeapify(arr, largest)
+    
+def BuildMaxHeap(arr):
+    for i in range(int(heapSize(arr)/2)-1, -1, -1):
+        MaxHeapify(arr, i)
+        
+def HeapSort(arr):
+    BuildMaxHeap(arr)
+    B = list()
+    heapSize1 = heapSize(arr)
+    for i in range(heapSize(arr), 0, -1):
+        arr[0], arr[i]= arr[i], arr[0]
+        B.append(arr[heapSize1])
+        arr = arr[:-1]
+        heapSize1 = heapSize1-1
+        MaxHeapify(arr, 0)
+        
+elements = list()
+times = list()
+for i in range(1, 10):
+    a = randint(0, 1000 * i, 1000 * i)
+    start = time.clock()
+    HeapSort(a)
+    end = time.clock()
+    print(len(a), ""Elements Sorted by HeapSort in "", end-start)
+    elements.append(len(a))
+    times.append(end-start)
+
+plt.xlabel('List Length')
+plt.ylabel('Time Complexity')
+plt.plot(elements, times, label ='Heap Sort')
+plt.grid()
+plt.legend()
+plt.show()
+
+
+
+"
+" Write a python program to sort an array using Stooge Sort
+","def stoogesort(array, l, h):
+ if l >= h:
+  return
+
+ if array[l]>array[h]:
+  t = array[l]
+  array[l] = array[h]
+  array[h] = t
+ 
+ if h-l+1 > 2:
+  t = (int)((h-l+1)/3)
+ 
+  stoogesort(array, l, (h-t))
+ 
+  stoogesort(array, l+t, (h))
+ 
+  stoogesort(array, l, (h-t))
+
+arr = [2, 4, 5, 3, 1]
+n = len(arr)
+ 
+stoogesort(arr, 0, n-1)
+ 
+for i in range(0, n):
+ print(arr[i], end = ' ')
+
+
+
+"
+" Write a python program for sorting an array using Recursive Insertion Sort
+","def insertionSortRecursive(A, n):
+    if n <= 1:
+        return
+ 
+    insertionSortRecursive(A, n - 1)
+ 
+    last = A[n - 1]
+    j = n - 2
+ 
+    while (j >= 0 and A[j] > last):
+        A[j + 1] = A[j]
+        j = j - 1
+    A[j + 1] = last
+
+A = [-7, 11, 6, 0, -3, 5, 10, 2]
+n = len(A)
+insertionSortRecursive(A, n)
+print(A)
+
+
+
+"
+" Write a python program to sort an array recursively using Insertion Sort
+","def insertionSortRecursive(A, n):
+    if n <= 1:
+        return
+ 
+    insertionSortRecursive(A, n - 1)
+ 
+    last = A[n - 1]
+    j = n - 2
+ 
+    while (j >= 0 and A[j] > last):
+        A[j + 1] = A[j]
+        j = j - 1
+    A[j + 1] = last
+
+A = [-7, 11, 6, 0, -3, 5, 10, 2]
+n = len(A)
+insertionSortRecursive(A, n)
+print(A)
+
+
+
+"
+" Write a python program to sort an array using Cycle Sort
+","def cycleSort(array):
+  updates = 0
+   
+  for cycleStart in range(0, len(array) - 1):
+    item = array[cycleStart]
+     
+    pos = cycleStart
+    for i in range(cycleStart + 1, len(array)):
+      if array[i] < item:
+        pos += 1
+     
+    if pos == cycleStart:
+      continue
+     
+    while item == array[pos]:
+      pos += 1
+    array[pos], item = item, array[pos]
+    updates += 1
+     
+    while pos != cycleStart:
+       
+      pos = cycleStart
+      for i in range(cycleStart + 1, len(array)):
+        if array[i] < item:
+          pos += 1
+       
+      while item == array[pos]:
+        pos += 1
+      array[pos], item = item, array[pos]
+      updates += 1
+   
+  return updates
+
+arr = [1, 8, 3, 9, 10, 10, 2, 4 ]
+n = len(arr)
+cycleSort(arr)
+ 
+print(""After sort : "")
+for i in range(0, n) :
+    print(arr[i], end = \' \')
+
+
+
+"
+" Write a python program to sort an array using BogoSort
+","import random
+
+def is_sorted(a):
+    n = len(a)
+    for i in range(0, n-1):
+        if (a[i] > a[i+1] ):
+            return False
+    return True
+ 
+def shuffle(a):
+    n = len(a)
+    for i in range (0,n):
+        r = random.randint(0,n-1)
+        a[i], a[r] = a[r], a[i]
+ 
+def bogoSort(a):
+    n = len(a)
+    while (is_sorted(a)== False):
+        shuffle(a)
+
+a = [3, 2, 4, 1, 0, 5]
+bogoSort(a)
+print(""Sorted array :"")
+for i in range(len(a)):
+    print (""%d"" %a[i])
+
+
+
+"
+" Write a python program for sorting a list using Permutation Sort
+","import random
+
+def is_sorted(l):
+    n = len(l)
+    for i in range(0, n-1):
+        if (l[i] > l[i+1] ):
+            return False
+    return True
+ 
+def shuffle(l):
+    n = len(l)
+    for i in range (0,n):
+        r = random.randint(0,n-1)
+        l[i], l[r] = l[r], l[i]
+ 
+def PermutationSort(l):
+    n = len(l)
+    while (is_sorted(l)== False):
+        shuffle(l)
+
+l = [6, 4, 8, 2, 0, 10]
+PermutationSort(l)
+print(""Sorted list :"")
+for i in range(len(l)):
+    print (""%d"" %l[i])
+
+
+
+"
+" Write a python program to sort an array using Odd-Even Sort
+","def oddEvenSort(arr, n):
+    isSorted = 0
+    while isSorted == 0:
+        isSorted = 1
+        temp = 0
+        for i in range(1, n-1, 2):
+            if arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                isSorted = 0
+                 
+        for i in range(0, n-1, 2):
+            if arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                isSorted = 0
+     
+    return
+
+arr = [34, 2, 10, -9]
+n = len(arr)
+oddEvenSort(arr, n);
+for i in range(0, n):
+    print(arr[i], end ="" "")
+
+
+
+"
+" Write a python program to sort a list using Brick Sort
+","def BrickSort(l, n):
+    is_Sorted = 0
+    while is_Sorted == 0:
+        is_Sorted = 1
+        temp = 0
+        for i in range(1, n-1, 2):
+            if l[i] > l[i+1]:
+                l[i], l[i+1] = l[i+1], l[i]
+                is_Sorted = 0
+                 
+        for i in range(0, n-1, 2):
+            if l[i] > l[i+1]:
+                l[i], l[i+1] = l[i+1], l[i]
+                is_Sorted = 0
+     
+    return
+
+l = [34, 2, 10, -9]
+n = len(l)
+BrickSort(l, n);
+for j in range(0, n):
+    print(l[j], end ="" "")
+
+
+
+
+
+"
+" Write a python program to sort an array using Gnome Sort
+","def gnomeSort(arr, n):
+    index = 0
+    while index < n:
+        if index == 0:
+            index = index + 1
+        if arr[index] >= arr[index - 1]:
+            index = index + 1
+        else:
+            arr[index], arr[index-1] = arr[index-1], arr[index]
+            index = index - 1
+ 
+    return arr
+
+arr = [ 34, 2, 10, -9]
+n = len(arr)
+arr = gnomeSort(arr, n)
+print ""Sorted sequence after applying Gnome Sort :"",
+for e in arr:
+    print(e)
+
+
+
+"
+" Write a python program for sorting a list using Cocktail Sort
+","def cocktailSort(a):
+    n = len(a)
+    swap = True
+    start = 0
+    end = n-1
+    while (swap==True):
+        swap = False
+ 
+        for k in range (start, end):
+            if (a[k] > a[k+1]) :
+                a[k], a[k+1]= a[k+1], a[k]
+                swap=True
+ 
+        if (swap==False):
+            break
+ 
+        swap = False
+ 
+        end = end-1
+ 
+        for idx in range(end-1, start-1,-1):
+            if (a[idx] > a[idx+1]):
+                a[idx], a[idx+1] = a[idx+1], a[idx]
+                swap = True
+ 
+        start = start+1
+
+l = [5, 1, 4, 2, 8, 0, 2]
+cocktailSort(l)
+print(""Sorted list is:"")
+for k in range(len(l)):
+    print (""%d"" %a[k])
+
+
+
+"
+" Write a python program to sort an array using Bitonic Sort
+","def compAndSwap(a, i, j, dire):
+    if (dire == 1 and a[i] > a[j]) or (dire == 0 and a[i] > a[j]):
+        a[i], a[j] = a[j], a[i]
+
+def bitonicMerge(a, low, cnt, dire):
+    if cnt > 1:
+        k = cnt//2
+        for i in range(low, low+k):
+            compAndSwap(a, i, i+k, dire)
+        bitonicMerge(a, low, k, dire)
+        bitonicMerge(a, low+k, k, dire)
+ 
+def bitonicSort(a, low, cnt, dire):
+    if cnt > 1:
+        k = cnt//2
+        bitonicSort(a, low, k, 1)
+        bitonicSort(a, low+k, k, 0)
+        bitonicMerge(a, low, cnt, dire)
+ 
+def sort(a, N, up):
+    bitonicSort(a, 0, N, up)
+
+a = [3, 7, 4, 8, 6, 2, 1, 5]
+n = len(a)
+up = 1
+sort(a, n, up)
+print(""\n\nSorted array is"")
+for i in range(n):
+    print(""%d"" % a[i], end="" "")
+
+
+
+"
+" Write a python program for sorting an array using Pigeonhole Sort
+","def pigeonhole_sort(a):
+    my_min = min(a)
+    my_max = max(a)
+    size = my_max - my_min + 1
+  
+    holes = [0] * size
+  
+    for x in a:
+        assert type(x) is int, ""integers only please""
+        holes[x - my_min] += 1
+  
+    i = 0
+    for count in range(size):
+        while holes[count] > 0:
+            holes[count] -= 1
+            a[i] = count + my_min
+            i += 1
+
+a = [8, 3, 2, 7, 4, 6, 8]
+print(""Sorted order is : "", end ="" "")
+  
+pigeonhole_sort(a)
+          
+for i in range(0, len(a)):
+    print(a[i], end ="" "")
+
+
+"
+" Write a python program to sort an array using Comb Sort
+","def getNextGap(gap):
+ 
+    # Shrink gap by Shrink factor
+    gap = (gap * 10)/13
+    if gap & lt
+    1:
+        return 1
+    return gap
+ 
+def combSort(arr):
+    n = len(arr)
+
+    gap = n
+ 
+    swapped = True
+ 
+    while gap != 1 or swapped == 1:
+ 
+        gap = getNextGap(gap)
+ 
+        swapped = False
+ 
+        for i in range(0, n-gap):
+            if arr[i] & gt
+            arr[i + gap]:
+                arr[i], arr[i + gap] = arr[i + gap], arr[i]
+                swapped = True
+
+arr = [8, 4, 1, 3, -44, 23, -6, 28, 0]
+combSort(arr)
+ 
+print (""Sorted array: "", ""\n"")
+for i in range(len(arr)):
+    print(arr[i]),
+
+
+
+"
+" Write a python program to sort an array iteratively using Merge Sort
+","def merge(left, right):
+    if not len(left) or not len(right):
+        return left or right
+ 
+    result = []
+    i, j = 0, 0
+    while (len(result) < len(left) + len(right)):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i+= 1
+        else:
+            result.append(right[j])
+            j+= 1
+        if i == len(left) or j == len(right):
+            result.extend(left[i:] or right[j:])
+            break
+ 
+    return result
+ 
+def mergesort(list):
+    if len(list) < 2:
+        return list
+ 
+    middle = int(len(list)/2)
+    left = mergesort(list[:middle])
+    right = mergesort(list[middle:])
+ 
+    return merge(left, right)
+
+seq = [12, 11, 13, 5, 6, 7]
+print(""Given array is"")
+print(seq);
+print(""\n"")
+print(""Sorted array is"")
+print(mergesort(seq))
+
+
+
+"
+" Write a python program to sort an array using Iterative Merge Sort
+","def merge(left, right):
+    if not len(left) or not len(right):
+        return left or right
+ 
+    result = []
+    i, j = 0, 0
+    while (len(result) < len(left) + len(right)):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i+= 1
+        else:
+            result.append(right[j])
+            j+= 1
+        if i == len(left) or j == len(right):
+            result.extend(left[i:] or right[j:])
+            break
+ 
+    return result
+ 
+def mergesort(list):
+    if len(list) < 2:
+        return list
+ 
+    middle = int(len(list)/2)
+    left = mergesort(list[:middle])
+    right = mergesort(list[middle:])
+ 
+    return merge(left, right)
+
+seq = [12, 11, 13, 5, 6, 7]
+print(""Given array is"")
+print(seq);
+print(""\n"")
+print(""Sorted array is"")
+print(mergesort(seq))
+
+
+
+"
+" Write a python program for Binary Insertion Sort
+","def binary_search(arr, val, start, end):
+    if start == end:
+        if arr[start] > val:
+            return start
+        else:
+            return start+1
+
+    if start > end:
+        return start
+ 
+    mid = (start+end)/2
+    if arr[mid] < val:
+        return binary_search(arr, val, mid+1, end)
+    elif arr[mid] > val:
+        return binary_search(arr, val, start, mid-1)
+    else:
+        return mid
+ 
+def insertion_sort(arr):
+    for i in xrange(1, len(arr)):
+        val = arr[i]
+        j = binary_search(arr, val, 0, i-1)
+        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
+    return arr
+
+print(""Sorted array:"")
+print(insertion_sort([37, 23, 0, 17, 12, 72, 31,
+                        46, 100, 88, 54]))
+
+
+
+"
+" Write a python program to combine Binary Search with Insertion Sort
+","def binary_search(arr, val, start, end):
+    if start == end:
+        if arr[start] > val:
+            return start
+        else:
+            return start+1
+
+    if start > end:
+        return start
+ 
+    mid = (start+end)/2
+    if arr[mid] < val:
+        return binary_search(arr, val, mid+1, end)
+    elif arr[mid] > val:
+        return binary_search(arr, val, start, mid-1)
+    else:
+        return mid
+ 
+def insertion_sort(arr):
+    for i in xrange(1, len(arr)):
+        val = arr[i]
+        j = binary_search(arr, val, 0, i-1)
+        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
+    return arr
+
+print(""Sorted array:"")
+print(insertion_sort([37, 23, 0, 17, 12, 72, 31,
+                        46, 100, 88, 54]))
+
+
+
+"
+" Write a python program to sort an array using Shell Sort
+","def shellSort(arr):
+    n = len(arr)
+    gap = n/2
+ 
+    while gap > 0:
+ 
+        for i in range(gap,n):
+           
+            tmp = arr[i]
+ 
+            j = i
+            while  j >= gap and arr[j-gap] >tmp:
+                arr[j] = arr[j-gap]
+                j -= gap
+ 
+            arr[j] = tmp
+        gap /= 2
+
+arr = [ 12, 34, 54, 2, 3]
+ 
+n = len(arr)
+print (""Array before sorting:"")
+for i in range(n):
+    print(arr[i]),
+ 
+shellSort(arr)
+ 
+print (""\nArray after sorting:"")
+for i in range(n):
+    print(arr[i])
+
+
+
+"
+" Write a python program to sort a list using Bubble Sort
+","def bubbleSort(l):
+    n = len(l)
+
+    swapped = False
+
+    for i in range(n-1):
+
+        for j in range(0, n-i-1):
+ 
+            if l[j] > l[j + 1]:
+                swapped = True
+                l[j], l[j + 1] = l[j + 1], l[j]
+         
+        if not swapped:
+            return
+
+A = [64, 34, 25, 12, 22, 11, 90]
+bubbleSort(A)
+print(""Sorted list is:"")
+for i in range(len(A)):
+    print(""% d"" % A[i], end="" "")
+
+
+"
+" Write a python program to sort an array using Selection Sort
+","def selectionSort(array, size):
+    
+    for idx in range(size):
+        min_index = idx
+ 
+        for j in range(idx + 1, size):
+            if array[j] < array[min_index]:
+                min_index = j
+        (array[idx], array[min_index]) = (array[min_index], array[idx])
+
+arr = [-2, 45, 0, 11, -9,88,-97,-202,747]
+size = len(arr)
+selectionSort(arr, size)
+print('The array after sorting in Ascending Order by selection sort is:')
+print(arr)
+
+
+
+"
+" Write a python program for sorting an array using Quick Sort
+","def partition(arr, l, h):
+ 
+    pivot = arr[h]
+ 
+    i = l - 1
+ 
+    for j in range(l, h):
+        if arr[j] <= pivot:
+ 
+            i = i + 1
+ 
+            (arr[i], arr[j]) = (arr[j], arr[i])
+
+    (arr[i + 1], arr[h]) = (arr[h], arr[i + 1])
+
+    return i + 1
+ 
+def quickSort(arr, l, h):
+    if l < h:
+ 
+        pi = partition(arr, l, h)
+
+        quickSort(arr, l, pi - 1)
+ 
+        quickSort(arr, pi + 1, h)
+
+data = [1, 7, 4, 1, 10, 9, -2]
+print(""Unsorted Array"")
+print(data)
+ 
+size = len(data)
+ 
+quickSort(data, 0, size - 1)
+ 
+print('Sorted Array in Ascending Order:')
+print(data)
+
+
+
+"
+" Write a python program for sorting an array using Radix Sort
+","def countingSort(array, exp1):
+   
+    n = len(array)
+   
+    output = [0] * (n)
+   
+    count = [0] * (10)
+   
+    for i in range(0, n):
+        index = (array[i]/exp1)
+        count[int((index)%10)] += 1
+   
+    for i in range(1,10):
+        count[i] += count[i-1]
+   
+    i = n-1
+    while i>=0:
+        index = (array[i]/exp1)
+        output[ count[ int((index)%10) ] - 1] = array[i]
+        count[int((index)%10)] -= 1
+        i -= 1
+   
+    i = 0
+    for i in range(0,len(array)):
+        array[i] = output[i]
+
+def radixSort(array):
+ 
+    max1 = max(array)
+ 
+    exp = 1
+    while max1/exp > 0:
+        countingSort(array,exp)
+        exp *= 10
+
+arr = [ 170, 45, 75, 90, 802, 24, 2, 66]
+radixSort(arr)
+ 
+for j in range(len(arr)):
+    print(arr[j],end="" "")
+
+
+"
+" Write a python program to sort a string in alphabetical order using Counting Sort
+","def countSort(string):
+ 
+    output = [0 for i in range(256)]
+ 
+    count = [0 for i in range(256)]
+ 
+    ans = ["""" for _ in arr]
+ 
+    for i in string:
+        count[ord(i)] += 1
+ 
+    for i in range(256):
+        count[i] += count[i-1]
+ 
+    for i in range(len(string)):
+        output[count[ord(string[i])]-1] = string[i]
+        count[ord(string[i])] -= 1
+ 
+    for i in range(len(string)):
+        ans[i] = output[i]
+    return ans
+
+inp_str = ""geeksforgeeks""
+ans = countSort(inp_str)
+print (""Sorted string is %s""  %("""".join(ans)))
+
+
+
+"
+" Write a python program to sort an array using Heap Sort
+","def heapify(arr, n, i):
+    largest = i  
+    left = 2 * i + 1  
+    right = 2 * i + 2  
+ 
+    if left < n and arr[i] < arr[left]:
+        largest = left
+ 
+    if right < n and arr[largest] < arr[right]:
+        largest = right
+ 
+    if largest != i:
+        (arr[i], arr[largest]) = (arr[largest], arr[i]) 
+ 
+        heapify(arr, n, largest)
+ 
+def heapSort(arr):
+    n = len(arr)
+ 
+    for k in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, k)
+ 
+    for j in range(n - 1, 0, -1):
+        (arr[j], arr[0]) = (arr[0], arr[j]) 
+        heapify(arr, j, 0)
+
+arr = [12, 11, 13, 5, 6, 7, ]
+heapSort(arr)
+n = len(arr)
+print('Sorted array is')
+for i in range(n):
+    print(arr[i])
+
+
+
+"
+" Write a python function for sorting an array using Insertion Sort
+","def insertionSort(array):
+ 
+    for k in range(1, len(array)):
+ 
+        key = array[k]
+
+        j = k-1
+        while j >=0 and key < array[j] :
+                array[j+1] = array[j]
+                j -= 1
+        array[j+1] = key
+
+array = [12, 11, 13, 5, 6]
+insertionSort(array)
+print(array)
+
+
+"
+" Write a python program to sort an array iteratively using Quick Sort
+","def partition(arr,low,high):
+    i = ( low - 1 )
+    x = arr[high]
+ 
+    for j in range(low , high):
+        if   arr[j] <= x:
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i]
+ 
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return (i+1)
+
+def quickSortIterative(arr,low,high):
+ 
+    size = high - low + 1
+    stack = [0] * (size)
+ 
+    top = -1
+ 
+    top = top + 1
+    stack[top] = low
+    top = top + 1
+    stack[top] = high
+ 
+    while top >= 0:
+        
+        high = stack[top]
+        top = top - 1
+        low = stack[top]
+        top = top - 1
+ 
+        p = partition( arr, low, high )
+        
+        if p-1 > low:
+            top = top + 1
+            stack[top] = low
+            top = top + 1
+            stack[top] = p - 1
+ 
+        if p+1 < high:
+            top = top + 1
+            stack[top] = p + 1
+            top = top + 1
+            stack[top] = high
+
+arr = [4, 3, 5, 2, 1, 3, 2, 3]
+n = len(arr)
+quickSortIterative(arr, 0, n-1)
+print (""Sorted array is:"")
+for i in range(n):
+    print (""%d"" %arr[i])   
+
+
+
+"
+" Write a python program to to sort even and odd positioned elements in different orders using Insertion Sort
+","def evenOddInsertionSort(array, n):
+ 
+    for i in range(2, n):
+     
+        j = i - 2
+        temp = array[i]
+
+        if ((i + 1) & 1 == 1) :
+
+            while (temp >= array[j] and j >= 0):
+             
+                array[j + 2] = array[j]
+                j -= 2
+             
+            array[j + 2] = temp    
+         
+        else :
+
+            while (temp <= array[j] and j >= 0) :
+             
+                array[j + 2] = array[j]
+                j -= 2
+             
+            array[j + 2] = temp    
+ 
+array = [12, 11, 13, 5, 6]
+n = len(array)
+evenOddInsertionSort(array, n)
+for i in range(0, n):
+    print(array[i], end="" "")
+
+
+
+"
+" Write a python program to count the number of swaps required to sort an array using Insertion Sort
+","def merge(arr, left, mid, right):
+     
+    swaps = 0
+ 
+    i, j, k = left, mid, left
+     
+    while (i < mid and j <= right):
+         
+        if (arr[i] <= arr[j]):
+            temp[k] = arr[i]
+            k, i = k + 1, i + 1
+        else:
+            temp[k] = arr[j]
+            k, j = k + 1, j + 1
+            swaps += mid - i
+ 
+    while (i < mid):
+        temp[k] = arr[i]
+        k, i = k + 1, i + 1
+ 
+    while (j <= right):
+        temp[k] = arr[j]
+        k, j = k + 1, j + 1
+ 
+    while (left <= right):
+        arr[left] = temp[left]
+        left += 1
+ 
+    return swaps
+
+def mergeInsertionSwap(arr, left, right):
+
+    swaps = 0
+     
+    if (left < right):
+
+        mid = left + (right - left) // 2
+
+        swaps += mergeInsertionSwap(arr, left, mid)
+
+        swaps += mergeInsertionSwap(arr, mid + 1, right)
+ 
+        swaps += merge(arr, left, mid + 1, right)
+ 
+    return swaps
+
+A = [ 2, 1, 3, 1, 2 ]
+N = len(A)
+print(mergeInsertionSwap(A, 0, N - 1))
+
+
+"
+" Write a python program to sort an array of strings using Selection Sort
+","def Selection(A,n):
+
+    for i in range(n):
+        min_index = i
+        min_str = A[i]
+         
+        for j in range(i+1,n):
+            if min_str>A[j]:
+                min_str = A[j]
+                min_index = j
+                 
+        if min_index != i:
+             
+            temp = A[i]
+            A[i] = A[min_index]
+            A[min_index] = temp
+ 
+    return A
+
+arr = [""GeeksforGeeks"", ""Practice.GeeksforGeeks"", ""GeeksQuiz""]
+ 
+print(""Given array is"")
+for j in range(len(arr)):
+    print(j,"":"",arr[j])
+ 
+print(""\nSorted array is"")
+for k in range(len(Selection(arr,len(arr)))):
+    print(k,"":"",Selection(arr,len(arr))[k])
+
+
+
+"
+" Write a python program to count number of inversions in an array using merge sort
+","def mergeSort(arr, n):
+    temp_arr = [0]*n
+    return _mergeSort(arr, temp_arr, 0, n - 1)
+
+def _mergeSort(arr, temp_arr, left, right):
+    inv_count = 0
+    if left < right:
+        mid = (left + right)//2
+        inv_count += _mergeSort(arr, temp_arr, left, mid)
+        inv_count += _mergeSort(arr, temp_arr, mid + 1, right)
+        inv_count += merge(arr, temp_arr, left, mid, right)
+    return inv_count
+  
+def merge(arr, temp_arr, left, mid, right):
+    i = left     
+    j = mid + 1 
+    k = left     
+    inv_count = 0
+  
+    while i <= mid and j <= right:
+  
+        if arr[i] <= arr[j]:
+            temp_arr[k] = arr[i]
+            k += 1
+            i += 1
+        else:
+            temp_arr[k] = arr[j]
+            inv_count += (mid-i + 1)
+            k += 1
+            j += 1
+
+    while i <= mid:
+        temp_arr[k] = arr[i]
+        k += 1
+        i += 1
+  
+    while j <= right:
+        temp_arr[k] = arr[j]
+        k += 1
+        j += 1
+
+    for loop_var in range(left, right + 1):
+        arr[loop_var] = temp_arr[loop_var]
+          
+    return inv_count
+
+arr = [1, 20, 6, 4, 5]
+n = len(arr)
+result = mergeSort(arr, n)
+print(""Number of inversions are"", result)
+
+
+
+"
+" Write a python function to sort an array in wave form
+","def sortInWave(array, n):
+    for idx in range(0, n, 2):
+          
+        if (idx> 0 and array[idx] < array[idx-1]):
+            array[idx],array[idx-1] = array[idx-1],array[idx]
+          
+        if (idx < n-1 and array[idx] < array[idx+1]):
+            array[idx],array[idx+1] = array[idx+1],array[idx]
+
+arr = [10, 90, 49, 2, 1, 5, 23]
+sortInWave(arr, len(arr))
+for i in range(0,len(arr)):
+    print(arr[i])
+
+
+"
+" Write a python program to sort a list of tuples alphabetically by the first item of each tuple
+","def SortTuple(tup):
+
+    n = len(tup)
+      
+    for i in range(n):
+        for j in range(n-i-1):
+              
+            if tup[j][0] > tup[j + 1][0]:
+                tup[j], tup[j + 1] = tup[j + 1], tup[j]
+                  
+    return tup
+
+tup = [(""Amana"", 28), (""Zenat"", 30), (""Abhishek"", 29),
+        (""Nikhil"", 21), (""B"", ""C"")]
+          
+print(SortTuple(tup))
+
+
+
+"
+" Write a Python program to sort a list of elements using Pancake sort
+","def pancake_sort(nums_list):
+    arr_len = len(nums_list)
+    while arr_len > 1:
+        mi = nums_list.index(max(nums_list[0:arr_len]))
+        nums_list = nums_list[mi::-1] + nums_list[mi+1:len(nums_list)]
+        nums_list = nums_list[arr_len-1::-1] + nums_list[arr_len:len(nums_list)]
+        arr_len -= 1
+    return nums_list
+
+user_input = input(""Input numbers separated by a comma:\n"").strip()
+nums = [int(item) for item in user_input.split(',')]
+print(pancake_sort(nums))
+
+
+"
+" Write a Python program to sort an unsorted array of numbers using Wiggle sort
+","def wiggle_sort(num_arr):
+    for i, _ in enumerate(num_arr):
+        if (i % 2 == 1) == (num_arr[i - 1] > num_arr[i]):
+            num_arr[i - 1], num_arr[i] = num_arr[i], num_arr[i - 1]
+
+    return num_arr
+
+print(""Input the array elements: "")
+array_nums = list(map(int, input().split()))
+print(""Original unsorted array:"")
+print(array_nums)
+print(""The said array after applying Wiggle sort:"")
+print(wiggle_sort(array_nums))
+
+
+"
+" Write a Python program to sort an unsorted list of numbers using Strand sort
+","import operator
+def strand_sort(num_arr: list, reverse: bool = False, solution: list = None) -> list:
+    _operator = operator.lt if reverse else operator.gt
+    solution = solution or []
+    if not num_arr:
+        return solution
+    sublist = [num_arr.pop(0)]
+    for k, item in enumerate(num_arr):
+        if _operator(item, sublist[-1]):
+            sublist.append(item)
+            num_arr.pop(k)
+
+    #  merging sublist into solution list
+    if not solution:
+        solution.extend(sublist)
+    else:
+        while sublist:
+            item = sublist.pop(0)
+            for j, xx in enumerate(solution):
+                if not _operator(item, xx):
+                    solution.insert(j, item)
+                    break
+            else:
+                solution.append(item)
+
+    strand_sort(num_arr, reverse, solution)
+    return solution
+
+lst = [5, 9, 10, 3, -4, 5, 178, 92, 46, -18, 0, 7]
+print(""\nOriginal list:"")
+print(lst)
+print(""After applying Strand sort the said list becomes:"")
+print(strand_sort(lst))
+
+
+"
+" Write a python program to sort an unsorted list of numbers recursively using Quick Sort
+","def quick_sort(nums_list: list) -> list:
+    if len(nums_list) <= 1:
+        return nums_list
+    else:
+        return (quick_sort([el for el in nums_list[1:] if el <= nums_list[0]]) + [nums_list[0]] + quick_sort([el for el in nums_list[1:] if el > nums_list[0]]))
+
+nums = [5, 9, 10, 3, -4, 5, 178, 92, 46, -18, 0, 7]
+print(""\nOriginal list:"")
+print(nums)
+print(""After applying Recursive Quick Sort the said list becomes:"")
+print(quick_sort(nums))
+
+
+"
+" Write a Python program to sort a given collection of numbers and its length in ascending order using Recursive Insertion Sort
+","def rec_insertion_sort(collection: list, n: int):
+    if len(collection) <= 1 or n <= 1:
+        return
+    insert_next(collection, n - 1)
+    rec_insertion_sort(collection, n - 1)
+
+def insert_next(collection: list, index: int):
+    if index >= len(collection) or collection[index - 1] <= collection[index]:
+        return
+
+    collection[index - 1], collection[index] = (
+        collection[index],
+        collection[index - 1],
+    )
+    insert_next(collection, index + 1)
+
+nums = [1.1, 1, 0, -1, -1.1, .1]
+print(""\nOriginal list:"")
+print(nums)
+print(""After applying Recursive Insertion Sort the said list becomes:"")
+rec_insertion_sort(nums, len(nums))
+print(nums)
+
+
+"
+" Write a Python program to sort an unsorted list of numbers recursively using Bubble Sort
+","def bubble_sort(list_data: list, length: int = 0) -> list:
+    length = length or len(list_data)
+    swap = False
+    for i in range(length - 1):
+        if list_data[i] > list_data[i + 1]:
+            list_data[i], list_data[i + 1] = list_data[i + 1], list_data[i]
+            swap = True
+
+    return list_data if not swap else bubble_sort(list_data, length - 1)
+
+nums = [4, 3, 5, 1, 2]
+print(""\nOriginal list:"")
+print(nums)
+print(""After applying Recursive Insertion Sort the said list becomes:"")
+bubble_sort(nums, len(nums))
+print(nums)
+
+
+"
+" Write a Python program to sort unsorted numbers using Random Pivot Quick Sort
+","import random
+
+def partition(A, left_index, right_index):
+    pivot = A[left_index]
+    i = left_index + 1
+    for j in range(left_index + 1, right_index):
+        if A[j] < pivot:
+            A[j], A[i] = A[i], A[j]
+            i += 1
+    A[left_index], A[i - 1] = A[i - 1], A[left_index]
+    return i - 1
+
+def quick_sort_random(A, left, right):
+    if left < right:
+        pivot = random.randint(left, right - 1)
+        A[pivot], A[left] = (A[left], A[pivot])
+        pivot_index = partition(A, left, right)
+        quick_sort_random(A, left, pivot_index)
+        quick_sort_random(A, pivot_index + 1, right)
+
+nums = [1.1, 1, 0, -1, -1.1, .1]
+print(""\nOriginal list:"")
+print(nums)
+print(""After applying Random Pivot Quick Sort the said list becomes:"")
+quick_sort_random(nums, 0, len(nums))
+print(nums)
+
+
+
+"
+" Write a Python program to sort unsorted numbers using Multi-key quicksort
+","def quick_sort_3partition(sorting: list, left: int, right: int) -> None:
+    if right <= left:
+        return
+    a = i = left
+    b = right
+    pivot = sorting[left]
+    while i <= b:
+        if sorting[i] < pivot:
+            sorting[a], sorting[i] = sorting[i], sorting[a]
+            a += 1
+            i += 1
+        elif sorting[i] > pivot:
+            sorting[b], sorting[i] = sorting[i], sorting[b]
+            b -= 1
+        else:
+            i += 1
+    quick_sort_3partition(sorting, left, a - 1)
+    quick_sort_3partition(sorting, b + 1, right)
+
+def three_way_radix_quicksort(sorting: list) -> list:
+    if len(sorting) <= 1:
+        return sorting
+    return (three_way_radix_quicksort([i for i in sorting if i < sorting[0]]) + [i for i in sorting if i == sorting[0]] + three_way_radix_quicksort([i for i in sorting if i > sorting[0]]))
+
+nums = [4, 3, 5, 1, 2]
+print(""\nOriginal list:"")
+print(nums)
+print(""After applying Random Pivot Quick Sort the said list becomes:"")
+quick_sort_3partition(nums, 0, len(nums)-1)
+print(nums)
+
+
+"
+" Write a Python program to sort an array using odd–even sort
+","def odd_even_transposition(arr: list) -> list:
+    arr_size = len(arr)
+    for _ in range(arr_size):
+        for n in range(_ % 2, arr_size - 1, 2):
+            if arr[n + 1] < arr[n]:
+                arr[n], arr[n + 1] = arr[n + 1], arr[n]
+
+    return arr
+
+nums = [5, 9, 10, 3, -4, 5, 178, 92, 46, -18, 0, 7]
+print(""\nOriginal list:"")
+print(nums)
+odd_even_transposition(nums)
+print(""Sorted order is:"", nums)
 
 
 "
