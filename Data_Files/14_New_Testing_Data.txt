@@ -1,0 +1,66 @@
+﻿#87 Code for finding the second distinct largest number in an array using Heap Sort
+
+
+
+
+#88 Write a program to find two integers that have minimum sum using odd-even sort
+
+
+
+
+#89 Using Bogo Sort to find the middle integer of the array, assume the length is odd
+
+
+
+
+#90 python program to find the largest integer that appears at most twice in an array using bucket sort
+
+
+
+
+#91 write code to sort the squares of each element of an array in descending order using Permutation Sort
+
+
+
+
+#92 using Cycle Sort, sort an input array and print the second maximum element
+
+
+
+
+#93 code for removing the smallest number of the list and printing it in non-increasing order by using radix sort
+
+
+
+
+#94 Program of finding the second smallest integer by utilizing stooge sort
+
+
+
+
+#95 with recursive insertion sort, find an integer that appears exactly 2 times in the given array
+
+
+
+
+#96 Write a python code to find the maximum sum of two integers using brick sort
+
+
+
+
+#97 code of checking if it is possible to find four equal lengths in an array to form a square using Counting Sort 
+
+
+
+
+#98 With Gnome Sort, sort an array in non-descending order and print the second last element
+
+
+
+
+#99 Utilizing cocktail sort, find the third minimum number which is distinct
+
+
+
+
+#100 write a program for sorting the cubes of each integer in the array with Pigeonhole Sort
