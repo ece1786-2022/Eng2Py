@@ -1,0 +1,834 @@
+#1 write a python program to sort an array in ascending order using bubble sort
+def bubbleSort(array):
+    swapped = False
+    for i in range(len(array)-1,0,-1):
+        for j in range(i):
+            if array[j]>array[j+1]:
+                array[j], array[j+1] = array[j+1], array[j]
+                swapped= True
+        if swapped:
+            swapped=False
+        else:
+            break
+    return array
+arr = [9,4,3,5,6,1,2,7]
+print(bubbleSort(arr))
+
+
+
+
+#12 write a python program to sort an array in descending order using selection sort
+def selectionSort(array):
+    for i in range(len(array)-1):
+        min_idx = i
+        for idx in range(i + 1, len(array)):
+            if array[idx] > array[min_idx]:
+                min_idx = idx
+        array[i], array[min_idx] = array[min_idx], array[i]
+    return array
+arr = [9,4,3,5,6,1,2,7]
+print(selectionSort(arr))
+
+
+
+
+#23 write a python program to find the element that appears more than ⌊n / 2⌋ times in an array using insertion sort, assume that this element always exists in the array
+def insertionSort(array):
+    for i in range(1, len(array)):
+        key = array[i]
+        j = i-1
+        while array[j] > key and j >= 0:
+            array[j+1] = array[j]
+            j -= 1
+        array[j+1] = key
+    return array
+arr = [2,2,1,1,1,2,2]
+arr = insertionSort(arr)
+print(arr[len(arr)//2])
+
+
+
+
+#34 write a python program to check if any value appears at least twice in the array using shell sort
+import math
+def shellSort(array):
+    n = len(array)
+    k = int(math.log2(n))
+    interval = 2**k -1
+    while interval > 0:
+        for i in range(interval, n):
+            temp = array[i]
+            j = i
+            while j >= interval and array[j - interval] > temp:
+                array[j] = array[j - interval]
+                j -= interval
+            array[j] = temp
+        k -= 1
+        interval = 2**k -1
+    return array
+arr = [1,2,3,1]
+arr = shellSort(arr)
+for i in range(len(arr)-1):
+    if arr[i] == arr[i+1]:
+        print("A value appears at least twice in the array")
+        break
+    else:
+        if (i+1 == len(arr)-1):
+            print("No value appear twice in the array")
+
+
+
+
+#45 write a python program to find the third distinct maximum number in this array using heap sort
+def heapify(array, n, i):
+    smallest = i
+    l = 2 * i + 1
+    r = 2 * i + 2
+    if l < n and array[i] < array[l]:
+        smallest = l
+    if r < n and array[smallest] < array[r]:
+        smallest = r
+    if smallest != i:
+        array[i], array[smallest] = array[smallest], array[i]
+        heapify(array, n, smallest)
+def heapSort(array):
+    n = len(array)
+    for i in range(n//2, -1, -1):
+        heapify(array, n, i)
+    for i in range(n-1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        heapify(array, i, 0)
+    return array
+arr = [2,2,3,1]
+arr = heapSort(arr)
+count = 1
+prev = arr[0]
+for i in range(len(arr)):
+    if arr[i] != prev:
+        count += 1
+        prev = arr[i]
+        if count == 3:
+            print(arr[i])
+
+
+
+
+#56 write a python program to find three numbers whose product is maximum in an array using merge sort
+def mergeSort(nums):
+    if len(nums)==1:
+        return nums
+    mid = (len(nums)-1) // 2
+    lst1 = mergeSort(nums[:mid+1])
+    lst2 = mergeSort(nums[mid+1:])
+    result = merge(lst1, lst2)
+    return result
+def merge(lst1, lst2):
+    lst = []
+    i = 0
+    j = 0
+    while(i<=len(lst1)-1 and j<=len(lst2)-1):
+        if lst1[i]<lst2[j]:
+            lst.append(lst1[i])
+            i+=1
+        else:
+            lst.append(lst2[j])
+            j+=1
+    if i>len(lst1)-1:
+        while(j<=len(lst2)-1):
+            lst.append(lst2[j])
+            j+=1
+    else:
+        while(i<=len(lst1)-1):
+            lst.append(lst1[i])
+            i+=1
+    return lst
+arr = [1,2,3,4]
+arr = mergeSort(arr)
+print(max(arr[-1] * arr[-2] * arr[-3], arr[0] * arr[1] * arr[-1]))
+
+
+
+
+#67 write a python program to find the largest perimeter of a triangle with a non-zero area, formed from three of these lengths in an array using quick sort
+def quickSort(array):
+    if len(array)> 1:
+        pivot=array.pop()
+        grtr_lst, equal_lst, smlr_lst = [], [pivot], []
+        for item in array:
+            if item == pivot:
+                equal_lst.append(item)
+            elif item > pivot:
+                grtr_lst.append(item)
+            else:
+                smlr_lst.append(item)
+        return (quickSort(smlr_lst) + equal_lst + quickSort(grtr_lst))
+    else:
+        return array
+arr = [2,1,2]
+arr = quickSort(arr)[::-1]
+for i in range(len(arr)-2):
+    if arr[i] + arr[i+1] > arr[i+2]:
+        print(arr[i] + arr[i+1] + arr[i+2])
+
+
+
+
+#78 write a python program to print an array of the squares of each number sorted in non-decreasing order of a given array using counting sort
+def countSort(array):
+    i_lower_bound , upper_bound = min(array), max(array)
+    lower_bound = i_lower_bound
+    if i_lower_bound < 0:
+        lb = abs(i_lower_bound)
+        array = [item + lb for item in array]
+        lower_bound , upper_bound = min(array), max(array)
+    counter_array = [0]*(upper_bound-lower_bound+1)
+    for item in array:
+        counter_array[item-lower_bound] += 1
+    pos = 0
+    for idx, item in enumerate(counter_array):
+        num = idx + lower_bound
+        for i in range(item):
+            array[pos] = num
+            pos += 1
+    if i_lower_bound < 0:
+        lb = abs(i_lower_bound)
+        array = [item - lb for item in array]
+    return array
+arr = [-2,-1,0,3,4]
+for i in range(len(arr)):
+    arr[i] *= arr[i]
+print(countSort(arr))
+
+
+
+
+#89 write a python program to find the mean of the remaining integers after removing the smallest 5% and the largest 5% of the elements in an array using radix sort
+import itertools
+def radixSort(array):
+    min_num = min(array)
+    if min_num < 0:
+        lb = abs(min_num)
+        array = [item + lb for item in array]
+    n_digits = len(str(max(array)))
+    for dgt in range(n_digits):
+        buckets = [[] for i in range(10)]
+        for num in array:
+            idx = (num // (10**dgt)) % 10
+            buckets[idx].append(num)
+        array = list(itertools.chain(*buckets))
+    if min_num < 0:
+        lb = abs(min_num)
+        array = [item - lb for item in array]
+    return array
+arr = [1,3,3,2,2,2,2,2,2,2,2,3,3,1]
+arr = radixSort(arr)
+start = int(len(arr)*5/100)
+arr2 = arr[start:len(arr)-start]
+print(sum(arr2)/len(arr2))
+
+
+
+
+#100 write a python program to find out how many numbers in the array are smaller than each element using bucket sort
+def bucketSort(array):
+    largest = max(array)
+    length = len(array)
+    size = largest/length
+    buckets = [[] for i in range(length)]
+    for i in range(length):
+        index = int(array[i]/size)
+        if index != length:
+            buckets[index].append(array[i])
+        else:
+            buckets[length - 1].append(array[i])
+    for i in range(len(array)):
+        buckets[i] = sorted(buckets[i])
+    result = []
+    for i in range(length):
+        result = result + buckets[i]
+    return result
+arr = [6,5,4,8]
+arr2 = bucketSort(arr.copy())
+print([arr2.index(i) for i in arr])
+
+
+
+#101 write a python program to sort an array in ascending order using Random Pivot Quick Sort
+import random
+
+def partition(A, left_index, right_index):
+    pivot = A[left_index]
+    i = left_index + 1
+    for j in range(left_index + 1, right_index):
+        if A[j] < pivot:
+            A[j], A[i] = A[i], A[j]
+            i += 1
+    A[left_index], A[i - 1] = A[i - 1], A[left_index]
+    return i - 1
+
+def quick_sort_random(A, left, right):
+    if left < right:
+        pivot = random.randint(left, right - 1)
+        A[pivot], A[left] = (A[left], A[pivot])
+        pivot_index = partition(A, left, right)
+        quick_sort_random(A, left, pivot_index)
+        quick_sort_random(A, pivot_index + 1, right)
+
+nums = [1.1, 1, 0, -1, -1.1, .1]
+print("\nOriginal list:")
+print(nums)
+print("After applying Random Pivot Quick Sort the said list becomes:")
+quick_sort_random(nums, 0, len(nums))
+print(nums)
+
+
+
+
+#112 write a python program to sort an array in descending order using recursive bubble sort
+def rec_bubble_sort(list_data: list, length: int = 0) -> list:
+    length = length or len(list_data)
+    swap = False
+    for i in range(length - 1):
+        if list_data[i] > list_data[i + 1]:
+            list_data[i], list_data[i + 1] = list_data[i + 1], list_data[i]
+            swap = True
+
+    return list_data if not swap else bubble_sort(list_data, length - 1)
+
+arr = [9,4,3,5,6,1,2,7]
+print(rec_bubble_sort(arr)[::-1])
+
+
+
+
+#123 write a python program to find the element that appears more than ⌊n / 2⌋ times in an array using recursive quick sort, assume that this element always exists in the array
+def rec_quick_sort(nums_list: list) -> list:
+    if len(nums_list) <= 1:
+        return nums_list
+    else:
+        return (quick_sort([el for el in nums_list[1:] if el <= nums_list[0]]) + [nums_list[0]] + quick_sort([el for el in nums_list[1:] if el > nums_list[0]]))
+
+arr = [2,2,1,1,1,2,2]
+arr = rec_quick_sort(arr)
+print(arr[len(arr)//2])
+
+
+
+
+#134 write a python program to check if any value appears at least twice in the array using strand sort
+import operator
+def strand_sort(num_arr: list, reverse: bool = False, solution: list = None) -> list:
+    _operator = operator.lt if reverse else operator.gt
+    solution = solution or []
+    if not num_arr:
+        return solution
+    sublist = [num_arr.pop(0)]
+    for k, item in enumerate(num_arr):
+        if _operator(item, sublist[-1]):
+            sublist.append(item)
+            num_arr.pop(k)
+
+    #  merging sublist into solution list
+    if not solution:
+        solution.extend(sublist)
+    else:
+        while sublist:
+            item = sublist.pop(0)
+            for j, xx in enumerate(solution):
+                if not _operator(item, xx):
+                    solution.insert(j, item)
+                    break
+            else:
+                solution.append(item)
+
+    strand_sort(num_arr, reverse, solution)
+    return solution
+
+arr = [1,2,3,1]
+arr = strand_sort(arr)
+for i in range(len(arr)-1):
+    if arr[i] == arr[i+1]:
+        print("A value appears at least twice in the array")
+        break
+    else:
+        if (i+1 == len(arr)-1):
+            print("No value appear twice in the array")
+
+
+
+
+#145 write a python program to find the third distinct maximum number in this array using pancake sort
+def pancake_sort(nums_list):
+    arr_len = len(nums_list)
+    while arr_len > 1:
+        mi = nums_list.index(max(nums_list[0:arr_len]))
+        nums_list = nums_list[mi::-1] + nums_list[mi+1:len(nums_list)]
+        nums_list = nums_list[arr_len-1::-1] + nums_list[arr_len:len(nums_list)]
+        arr_len -= 1
+    return nums_list
+
+arr = [2,2,3,1]
+arr = pancake_sort(arr)
+count = 1
+prev = arr[0]
+for i in range(len(arr)):
+    if arr[i] != prev:
+        count += 1
+        prev = arr[i]
+        if count == 3:
+            print(arr[i])
+
+
+
+
+#156 write a python program to find three numbers whose product is maximum in an array using Iterative Quick Sort
+def partition(arr,low,high):
+    i = ( low - 1 )
+    x = arr[high]
+ 
+    for j in range(low , high):
+        if   arr[j] <= x:
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i]
+ 
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return (i+1)
+
+def quickSortIterative(arr,low,high):
+ 
+    size = high - low + 1
+    stack = [0] * (size)
+ 
+    top = -1
+ 
+    top = top + 1
+    stack[top] = low
+    top = top + 1
+    stack[top] = high
+ 
+    while top >= 0:
+        
+        high = stack[top]
+        top = top - 1
+        low = stack[top]
+        top = top - 1
+ 
+        p = partition( arr, low, high )
+        
+        if p-1 > low:
+            top = top + 1
+            stack[top] = low
+            top = top + 1
+            stack[top] = p - 1
+ 
+        if p+1 < high:
+            top = top + 1
+            stack[top] = p + 1
+            top = top + 1
+            stack[top] = high
+
+arr = [1,2,3,4]
+quickSortIterative(arr, 0, len(arr)-1)
+print(max(arr[-1] * arr[-2] * arr[-3], arr[0] * arr[1] * arr[-1]))
+
+
+
+
+#167 write a python program to find the largest perimeter of a triangle with a non-zero area, formed from three of these lengths in an array using Binary Insertion Sort
+def binary_search(arr, val, start, end):
+    if start == end:
+        if arr[start] > val:
+            return start
+        else:
+            return start+1
+
+    if start > end:
+        return start
+ 
+    mid = int((start+end)/2)
+    if arr[mid] < val:
+        return binary_search(arr, val, mid+1, end)
+    elif arr[mid] > val:
+        return binary_search(arr, val, start, mid-1)
+    else:
+        return mid
+ 
+def bin_insertion_sort(arr):
+    for i in range(1, len(arr)):
+        val = arr[i]
+        j = binary_search(arr, val, 0, i-1)
+        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:]
+    return arr
+
+arr = [2,1,2]
+arr = bin_insertion_sort(arr)[::-1]
+for i in range(len(arr)-2):
+    if arr[i] + arr[i+1] > arr[i+2]:
+        print(arr[i] + arr[i+1] + arr[i+2])
+
+
+
+
+#178 write a python program to print an array of the squares of each number sorted in non-decreasing order of a given array using Iterative Merge Sort
+def merge(left, right):
+    if not len(left) or not len(right):
+        return left or right
+ 
+    result = []
+    i, j = 0, 0
+    while (len(result) < len(left) + len(right)):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i+= 1
+        else:
+            result.append(right[j])
+            j+= 1
+        if i == len(left) or j == len(right):
+            result.extend(left[i:] or right[j:])
+            break
+ 
+    return result
+ 
+def iter_merge_sort(list):
+    if len(list) < 2:
+        return list
+ 
+    middle = int(len(list)/2)
+    left = iter_merge_sort(list[:middle])
+    right = iter_merge_sort(list[middle:])
+ 
+    return merge(left, right)
+
+arr = [-2,-1,0,3,4]
+for i in range(len(arr)):
+    arr[i] *= arr[i]
+print(iter_merge_sort(arr))
+
+
+
+
+#189 write a python program to find the mean of the remaining integers after removing the smallest 5% and the largest 5% of the elements in an array using Comb Sort
+def getNextGap(gap):
+    gap = (gap * 10)//13
+    if gap < 1:
+        return 1
+    return gap
+  
+def combSort(arr):
+    n = len(arr)
+    gap = n
+    swapped = True
+    while gap !=1 or swapped == 1:
+        gap = getNextGap(gap)
+        swapped = False
+        for i in range(0, n-gap):
+            if arr[i] > arr[i + gap]:
+                arr[i], arr[i + gap]=arr[i + gap], arr[i]
+                swapped = True
+    return arr
+
+arr = [1,3,3,2,2,2,2,2,2,2,2,3,3,1]
+arr = combSort(arr)
+start = int(len(arr)*5/100)
+arr2 = arr[start:len(arr)-start]
+print(sum(arr2)/len(arr2))
+
+
+
+
+#200 write a python program to find out how many numbers in the array are smaller than each element using Pigeonhole Sort
+def pigeonhole_sort(a):
+    my_min = min(a)
+    my_max = max(a)
+    size = my_max - my_min + 1
+  
+    holes = [0] * size
+  
+    for x in a:
+        assert type(x) is int, "integers only please"
+        holes[x - my_min] += 1
+  
+    i = 0
+    for count in range(size):
+        while holes[count] > 0:
+            holes[count] -= 1
+            a[i] = count + my_min
+            i += 1
+    return a
+
+arr = [6,5,4,8]
+arr2 = pigeonhole_sort(arr.copy())
+print([arr2.index(i) for i in arr])
+
+
+
+
+#201 write a python program to sort an array in ascending order using Cocktail Sort
+def cocktailSort(a):
+    n = len(a)
+    swapped = True
+    start = 0
+    end = n-1
+    while (swapped == True):
+        swapped = False
+        for i in range(start, end):
+            if (a[i] > a[i + 1]):
+                a[i], a[i + 1] = a[i + 1], a[i]
+                swapped = True
+ 
+        if (swapped == False):
+            break
+ 
+        swapped = False
+        end = end-1
+
+        for i in range(end-1, start-1, -1):
+            if (a[i] > a[i + 1]):
+                a[i], a[i + 1] = a[i + 1], a[i]
+                swapped = True
+
+        start = start + 1
+
+arr = [9,4,3,5,6,1,2,7]
+cocktailSort(arr)
+print(arr)
+
+
+
+
+#212 write a python program to sort an array in descending order using Gnome Sort
+def gnomeSort(arr):
+    n = len(arr)
+    index = 0
+    while index < n:
+        if index == 0:
+            index = index + 1
+        if arr[index] >= arr[index - 1]:
+            index = index + 1
+        else:
+            arr[index], arr[index-1] = arr[index-1], arr[index]
+            index = index - 1
+ 
+    return arr
+
+arr = [9,4,3,5,6,1,2,7]
+print(gnomeSort(arr))
+
+
+
+
+#223 write a python program to find the element that appears more than ⌊n / 2⌋ times in an array using Brick Sort, assume that this element always exists in the array
+def BrickSort(l):
+    n = len(l)
+    is_Sorted = 0
+    while is_Sorted == 0:
+        is_Sorted = 1
+        temp = 0
+        for i in range(1, n-1, 2):
+            if l[i] > l[i+1]:
+                l[i], l[i+1] = l[i+1], l[i]
+                is_Sorted = 0
+                 
+        for i in range(0, n-1, 2):
+            if l[i] > l[i+1]:
+                l[i], l[i+1] = l[i+1], l[i]
+                is_Sorted = 0
+     
+    return l
+
+arr = [2,2,1,1,1,2,2]
+arr = gnomeSort(arr)
+print(arr[len(arr)//2])
+
+
+
+
+#234 write a python program to check if any value appears at least twice in the array using Odd-Even Sort
+def oddEvenSort(arr):
+    n = len(arr)
+    isSorted = 0
+    while isSorted == 0:
+        isSorted = 1
+        temp = 0
+        for i in range(1, n-1, 2):
+            if arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                isSorted = 0
+                 
+        for i in range(0, n-1, 2):
+            if arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
+                isSorted = 0
+     
+    return arr
+
+arr = [1,2,3,1]
+arr = oddEvenSort(arr)
+for i in range(len(arr)-1):
+    if arr[i] == arr[i+1]:
+        print("A value appears at least twice in the array")
+        break
+    else:
+        if (i+1 == len(arr)-1):
+            print("No value appear twice in the array")
+
+
+
+
+#245 write a python program to find the third distinct maximum number in this array using Permutation Sort
+import random
+
+def is_sorted(l):
+    n = len(l)
+    for i in range(0, n-1):
+        if (l[i] > l[i+1] ):
+            return False
+    return True
+ 
+def shuffle(l):
+    n = len(l)
+    for i in range (0,n):
+        r = random.randint(0,n-1)
+        l[i], l[r] = l[r], l[i]
+ 
+def PermutationSort(l):
+    n = len(l)
+    while (is_sorted(l)== False):
+        shuffle(l)
+    return l
+
+arr = [2,2,3,1]
+arr = PermutationSort(arr)
+count = 1
+prev = arr[0]
+for i in range(len(arr)):
+    if arr[i] != prev:
+        count += 1
+        prev = arr[i]
+        if count == 3:
+            print(arr[i])
+
+
+
+
+#256 write a python program to find three numbers whose product is maximum in an array using Bogo Sort
+import random
+
+def is_sorted(l):
+    n = len(l)
+    for i in range(0, n-1):
+        if (l[i] > l[i+1] ):
+            return False
+    return True
+ 
+def shuffle(l):
+    n = len(l)
+    for i in range (0,n):
+        r = random.randint(0,n-1)
+        l[i], l[r] = l[r], l[i]
+ 
+def BogoSort(l):
+    n = len(l)
+    while (is_sorted(l)== False):
+        shuffle(l)
+    return l
+
+arr = [1,2,3,4]
+arr = BogoSort(arr)
+print(max(arr[-1] * arr[-2] * arr[-3], arr[0] * arr[1] * arr[-1]))
+
+
+
+
+#267 write a python program to find the largest perimeter of a triangle with a non-zero area, formed from three of these lengths in an array using Cycle Sort
+def cycleSort(array):
+
+  for cycleStart in range(0, len(array) - 1):
+    item = array[cycleStart]
+     
+    pos = cycleStart
+    for i in range(cycleStart + 1, len(array)):
+      if array[i] < item:
+        pos += 1
+     
+    if pos == cycleStart:
+      continue
+     
+    while item == array[pos]:
+      pos += 1
+    array[pos], item = item, array[pos]
+     
+    while pos != cycleStart:
+       
+      pos = cycleStart
+      for i in range(cycleStart + 1, len(array)):
+        if array[i] < item:
+          pos += 1
+       
+      while item == array[pos]:
+        pos += 1
+      array[pos], item = item, array[pos]
+   
+  return array
+
+arr = [2,1,2]
+arr = cycleSort(arr)[::-1]
+for i in range(len(arr)-2):
+    if arr[i] + arr[i+1] > arr[i+2]:
+        print(arr[i] + arr[i+1] + arr[i+2])
+
+
+
+
+#278 write a python program to print an array of the squares of each number sorted in non-decreasing order of a given array using Recursive Inserion Sort
+def insertionSortRecursive(A, n):
+    if n <= 1:
+        return
+ 
+    insertionSortRecursive(A, n - 1)
+ 
+    last = A[n - 1]
+    j = n - 2
+ 
+    while (j >= 0 and A[j] > last):
+        A[j + 1] = A[j]
+        j = j - 1
+    A[j + 1] = last
+
+arr = [-2,-1,0,3,4]
+for i in range(len(arr)):
+    arr[i] *= arr[i]
+insertionSortRecursive(arr, len(arr))
+print(arr)
+
+
+
+
+#289 write a python program to find the mean of the remaining integers after removing the smallest 5% and the largest 5% of the elements in an array using Stooge Sort
+def stoogesort(array, l, h):
+ if l >= h:
+  return
+
+ if array[l]>array[h]:
+  t = array[l]
+  array[l] = array[h]
+  array[h] = t
+ 
+ if h-l+1 > 2:
+  t = (int)((h-l+1)/3)
+ 
+  stoogesort(array, l, (h-t))
+ 
+  stoogesort(array, l+t, (h))
+ 
+  stoogesort(array, l, (h-t))
+
+arr = [1,3,3,2,2,2,2,2,2,2,2,3,3,1]
+stoogesort(arr, 0, len(arr)-1)
+start = int(len(arr)*5/100)
+arr2 = arr[start:len(arr)-start]
+print(sum(arr2)/len(arr2))
+
+
+
+
