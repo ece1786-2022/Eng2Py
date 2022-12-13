@@ -22,4 +22,7 @@ This notebook contains the main model of our project, the fine-tuned model param
 ## Notebook - Hand_Labelling_Dhairya.ipynb & Hand_Labelling_Yuchen.ipynb
 These notebooks display the individual evaluations of our model on the testing set
 
+## loss_curves.png
+This image displays the loss curves generated during training
+
 (Please note that the notebooks use google drive as the space to save some files hence please change the arguments for paths to successfully run the notebooks)
